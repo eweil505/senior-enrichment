@@ -1,5 +1,5 @@
 {
-  "name": "Project Name",
+  "name": "monsters-u",
   "version": "0.0.1",
   "description": "A review time project",
   "main": "index.js",
@@ -32,6 +32,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "path": "^0.12.7",
     "volleyball": "^1.4.1",
     "webpack": "^3.5.5"
   }

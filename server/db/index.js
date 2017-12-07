@@ -2,12 +2,11 @@
 const chalk = require('chalk');
 const Sequelize = require('sequelize');
 const pkg = require('../../package.json');
+const Student = require('./models/Student.js');
+const Campus = require('./models/Campus.js');
+const db = require('./db.js');
 
-console.log(chalk.yellow("Opening database connection"));
+Student.belongsTo(Campus) //student belongs to one campus 
+Campus.hasMany(Student) //campus has many students, may have none
 
-// create the database instance that can be used in other database files
-module.exports = new Sequelize(`postgres://localhost:5432/${pkg.name}`, {
-  logging: false, // so we don't see all the SQL query made
-});
-
-// don't forget to run our models files and make all associations for our Sequelize objects (if you do it here consider circular references)
+module.exports = db

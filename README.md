@@ -46,7 +46,7 @@ If you feel ready, start by incorporating React-Router, Redux and React-Redux (w
 
 - Navigation: as a user I...
   * will land on **Home** by default
-  * can navigate to **Campuses** from **Home**
+  * can navigate to **Campuses** from **Home** 
   * can navigate to **Students** from **Home**
   * can navigate to view a **Single Campus** from **Campuses**
   * can navigate to view a **Single Student** from **Students**
