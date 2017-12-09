@@ -36,14 +36,12 @@ router.put('/:studentId', (req, res, next) => {
 
 router.delete('/:studentId', (req, res, next) => {
     const studentId = req.params.studentId
-    console.log('studentId', studentId)
     Student.findById(+studentId)
     .then(student => {
         return student.destroy()
     })
     .then(() => {
         console.log(`deleted student ${studentId}`)
-        res.redirect('/')
     })
     .catch(next);
 

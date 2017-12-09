@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {withRouter, NavLink} from 'react-router-dom';
+import {withRouter, NavLink, Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { deleteStudent } from '../store.js'
+import { AddStudentContainer } from './AddStudent.js'
 
 /*this file needs:
 1. a connect component which exposes a way to dispatch changes to the store
@@ -22,37 +23,32 @@ function StudentList(props) {
                                 <span>{student.name}</span>
                             </NavLink> 
                             
-                            <button className="remove-btn" onClick={dispatchDeleteStudent}>delete student</button>
+                            <button className="remove-btn" value={student.id} onClick={dispatchDeleteStudent}>delete student</button>
                            </li>
                         )
                     })
                 }
                 </ul>
+
+                <Link to={'students/new-student'}>Add A New Student</Link>
             </div>
     )
 
 }
-
-// class StudentListLoader extends Component {
-//     componentDidMount() {
-//         
-//     }
-// }
         
-
 
 const mapStateToProps = function(state) {
     return {
         students: state.students
-        // campuses: state.campuses
     }
 }
 
 const mapDispatchToProps = function(dispatch) {
     return {
-        dispatchDeleteStudent(student) {
-            console.log('dispatching delete student')
-            dispatch(deleteStudent(student))
+        dispatchDeleteStudent(event) {
+            let studentId = event.target.value
+            console.log('studentId', studentId)
+            dispatch(deleteStudent(studentId))
         },
 
         dispatchCreateStudent(student) {

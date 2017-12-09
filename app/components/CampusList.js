@@ -6,36 +6,35 @@ function CampusList(props) {
     const {campuses} = props;
     
     return (
-        <ul>
-            {
-                campuses.map(campus => {
-                    return (
-                        <li key={campus.id} >
-                            <NavLink to={`/campus/${campus.id}`}>
-                                <span>{campus.name}</span>
-                            </NavLink>
-                        </li>
-                    );
-                })
-            }
-            <li>
-                <NavLink to="/new-campus">Create a new campus</NavLink>
-            </li>
-        </ul>
+        <div>
+            <ul>
+                {
+                    campuses.map(campus => {
+                        return (
+                            <li key={campus.id}>
+                                <NavLink to={`/campus/${campus.id}`}>
+                                    <span>{campus.name}</span>
+                                </NavLink>
+                            </li>
+                        );
+                    })
+                }
+                
+            </ul>
+
+
+            <div>
+                <NavLink to="/campus/new-campus">Create a new campus</NavLink>
+            </div>
+        </div>
     )
 }
 
 const mapStateToProps = function(state) {
     return {
-        // students: state.students,
         campuses: state.campuses
     }
 }
 
-// const mapDispatchToProps = function(dispatch) {
-//     return {
-
-//     }
-// }
 
 export default withRouter(connect(mapStateToProps)(CampusList));

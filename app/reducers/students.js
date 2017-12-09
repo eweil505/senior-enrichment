@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {browserHistory} from 'react-router'
+import { browserHistory } from 'react-router'
 
 const GET_STUDENTS = 'GET_STUDENTS';
 const DELETE_STUDENT_SUCCESS = 'DELETE_STUDENT_SUCCESS';
@@ -15,26 +15,20 @@ export function getStudents(students) {
     return action;
 }
 
-export function deleteStudentSuccess(student) {
+export function deleteStudentSuccess(studentId) {
     const action = {
         type: DELETE_STUDENT_SUCCESS,
-        student
+        studentId
     }
     return action;
 }
 
-export function createNewStudent(student) {
-    const action = {
-        type: CREATE_NEW_STUDENT,
-        student
-    }
-}
-
-export function getStudent() {
+export function getStudent(student) {
     const action = {
         type: GET_STUDENT,
         student
     }
+    return action;
 }
 
 export function fetchStudents() {
@@ -48,28 +42,31 @@ export function fetchStudents() {
     } 
 }
 
-export function deleteStudent(student) {
+export function deleteStudent(studentId) {
     console.log('got to delete student')
     return function thunk(dispatch) {
-        return axios.delete(`/api/students/${student.id}`)
+        return axios.delete(`/api/students/${studentId}`)
         .then(() => {
-            console.log(`Deleted ${student.id}`)
-            dispatch(deleteStudentSuccess(student))
+            console.log(`Deleted ${studentId}`)
+            dispatch(deleteStudentSuccess(studentId))
             return;
         })
-        .catch(next);
+        .catch(error => console.log(error.stack))
     }
 }
 
-export function createStudent() {
+export function createStudent(student, history) {
     return function thunk(dispatch) {
-        return axios.post(`/api/newStudent`)
+        console.log('in thunk')
+        console.log(student)
+        return axios.post(`/api/students/newStudent`, student)
         .then(res => res.data)
         .then(newStudent => {
-            const action = createNewStudent(newStudent) 
+            console.log(newStudent)
+            const action = getStudent(newStudent) 
                 dispatch(action);
         })
-        .catch(next);
+        .catch(error => console.log(error.stack))
     }
 }
 
@@ -77,13 +74,12 @@ export default function reducer(state = [], action) {
     switch(action.type) {
         case GET_STUDENTS:
             return action.students;
-        // case DELETE_STUDENT_SUCCESS:
-        //     console.log('reached delete student success')
-        //     return {
-               
-        //     }
-            
-        case CREATE_NEW_STUDENT: 
+        case DELETE_STUDENT_SUCCESS:
+            console.log('reached delete student success')
+               return state.map(student => {
+                   return student.id !== student.action.id
+               })
+        case GET_STUDENT:
             return [...state, action.student]
             
         default: return state;
