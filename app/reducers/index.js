@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux'
 import students from './students'
 import campuses from './campuses'
+import singleCampus from './singleCampus'
 
  //=> where students is the reducer for the students component and 
 //campuses is the reducer for the campuses component
@@ -10,6 +11,6 @@ import campuses from './campuses'
 //----------------improved code ^, initial code v --------------------------
 
 
-const rootReducer = combineReducers({students, campuses})
+const rootReducer = combineReducers({students, campuses, singleCampus})
 
 export default rootReducer;

@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const GET_SINGLE_CAMPUS = 'GET_SINGLE_CAMPUS';
 
 export function getSingleCampus(campus) {

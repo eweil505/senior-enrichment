@@ -4,7 +4,8 @@ import CampusList from './CampusList';
 import StudentList from './StudentList';
 import AddStudentContainer from './AddStudent';
 import AddCampusContainer from './AddCampus';
-import Campus from './Campus';
+import SingleCampus from './Campus';
+import SingleStudent from './Student';
 import store, { fetchCampuses, fetchStudents } from '../store';
 import Navbar from './Navbar'
 
@@ -33,11 +34,11 @@ export default class App extends Component {
                         <Route exact path="/" render={() => <Redirect to=
                         "/campus"/>} />
                         <Route exact path="/campus" component={CampusList} />
-                        <Route path="/campus/:campusId" component={Campus} />
                         <Route exact path="/students" component={StudentList} />
                         <Route path="/students/new-student" component={AddStudentContainer} />
                         <Route path="/campus/new-campus" component={AddCampusContainer} />
-                        {/*<Route component={NotFound} />*/}
+                        <Route path="/campus/:campusId" component={SingleCampus} />
+                        <Route path="/students/:student" component={SingleStudent} />    
                     </Switch>
                 </div>
             </div>

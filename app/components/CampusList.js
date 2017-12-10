@@ -1,10 +1,9 @@
 import React from 'react';
-import {withRouter, NavLink} from 'react-router-dom';
+import {Route, withRouter, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 function CampusList(props) {
     const {campuses} = props;
-    
     return (
         <div>
             <ul>
@@ -12,17 +11,17 @@ function CampusList(props) {
                     campuses.map(campus => {
                         return (
                             <li key={campus.id}>
-                                <NavLink to={`/campus/${campus.id}`}>
+                                <NavLink to={`/campus/${campus.id}`} >
                                     <span>{campus.name}</span>
                                 </NavLink>
+                                
                             </li>
                         );
                     })
                 }
                 
-            </ul>
-
-
+            </ul>   
+            
             <div>
                 <NavLink to="/campus/new-campus">Create a new campus</NavLink>
             </div>

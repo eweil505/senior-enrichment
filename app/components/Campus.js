@@ -1,23 +1,36 @@
-import React, { Component } from 'react';
-import store, { fetchSingleCampus} from '../store'
+import React, {Component} from 'react';
+import store, { fetchSingleCampus } from '../store'
+import axios from 'axios'
 
-export default class SingleCampus extends Component {
-    constructor(props) {
-        super(props) 
+
+export default class SingleCampusContainer extends Component {
+    constructor() {
+        super();
+        this.state = {
+            campus: {}
+        }
     }
 
-    componentDidMount(props) {
-        const singleCampusThunk = fetchSingleCampus(props.match.params.campusId)
+    componentDidMount() {
+        const campusId = +this.props.match.params.campusId;
+        axios.get(`/api/campus/${campusId}`)
+        .then(res => res.data)
+        .then(singleCampus => {
+            this.setState({campus: singleCampus})
+        });
 
-        store.dispatch(singleCampusThunk)
-    }
 
-    render() {
-        console.log(this.state)
-        return (
-            <h1>    
-                future single campus home
-            </h1>
-        )
     }
+   render() {
+    return (
+        <div>
+            <h1> {this.state.campus.name} </h1>
+            <p>{this.state.campus.description}</p>
+        </div>
+    )
+   } 
+   
 }
+
+
+
