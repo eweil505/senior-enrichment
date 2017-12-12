@@ -62,7 +62,7 @@ export function deleteStudent(studentId) {
     }
 }
 
-export function createStudent(student, history) {
+export function createStudent(student) {
     return function thunk(dispatch) {
         return axios.post(`/api/students/newStudent`, student)
         .then(res => res.data)
