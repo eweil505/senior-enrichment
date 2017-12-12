@@ -1,0 +1,16 @@
+What went well: I found new confidence in creating a modular, functional server with express routes and sequelize models. 
+I made my first successful seed file, and practiced using curl and postman to test my routes.  I had some success with 
+wireframing and creating modularity in my store and react components based on the view hierarchy. I used some react-redux
+functionality to dispatch actions, map the state to the component's props, and connect my components.  
+
+What did not go well: It was hard to know how different parts of the app should interact with the store and modify the state. 
+It seems that the components that modify the state are not always the components that hold the state, but I had trouble
+wrapping my head around that concept. I also spent a lot of time in trial and error to see what would work or not in any 
+given component. It often felt like I was working without a plan, because my original plan didn't work out the way I wanted it 
+to. The hardest part seemed to be the overall architecture of the app, and how different parts modified the store state. 
+
+What I will do differently next time: I definitely need more familiarity with how different apps are put together. The React 
+docs have a helpful checklist on deciding whether or not a component needs state or not, which I will definitely refer to next
+time I put together a plan for an app. As far as figuring out how different parts of an app modify store state, it seems that 
+I just need more practice to feel more comfortable with it. The more examples I see, the more the different methods of store
+modification make sense. 
