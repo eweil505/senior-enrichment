@@ -5,6 +5,7 @@ const GET_STUDENTS = 'GET_STUDENTS';
 const DELETE_STUDENT_SUCCESS = 'DELETE_STUDENT_SUCCESS';
 const CREATE_NEW_STUDENT = 'CREATE_NEW_STUDENT';
 const GET_STUDENT = 'GET_STUDENT';
+const UPDATE_SINGLE_STUDENT = 'UPDATE_SINGLE_STUDENT'
 
 
 export function getStudents(students) {
@@ -31,6 +32,13 @@ export function getStudent(student) {
     return action;
 }
 
+export function updateSingleStudent(student) {
+    const action = {
+        type: UPDATE_SINGLE_STUDENT,
+        student
+    }
+}
+
 export function fetchStudents() {
     return function thunk(dispatch) {
         return axios.get('/api/students')
@@ -43,7 +51,6 @@ export function fetchStudents() {
 }
 
 export function deleteStudent(studentId) {
-    console.log('got to delete student')
     return function thunk(dispatch) {
         return axios.delete(`/api/students/${studentId}`)
         .then(() => {
@@ -57,14 +64,23 @@ export function deleteStudent(studentId) {
 
 export function createStudent(student, history) {
     return function thunk(dispatch) {
-        console.log('in thunk')
-        console.log(student)
         return axios.post(`/api/students/newStudent`, student)
         .then(res => res.data)
         .then(newStudent => {
-            console.log(newStudent)
             const action = getStudent(newStudent) 
                 dispatch(action);
+        })
+        .catch(error => console.log(error.stack))
+    }
+}
+
+export function editStudent(student, studentId) {
+    return function thunk(dispatch) {
+        return axios.put(`/api/students/${studentId}`, student)
+        .then(res => res.data)
+        .then(updatedStudent => {
+            const action = updateSingleStudent(updatedStudent)
+            dispatch(action)
         })
         .catch(error => console.log(error.stack))
     }
@@ -75,13 +91,14 @@ export default function reducer(state = [], action) {
         case GET_STUDENTS:
             return action.students;
         case DELETE_STUDENT_SUCCESS:
-            console.log('reached delete student success')
                return state.map(student => {
                    return student.id !== student.action.id
                })
         case GET_STUDENT:
             return [...state, action.student]
-            
+        case UPDATE_SINGLE_STUDENT:
+            const indexOfStudent = state.indexOf(action.student)
+            return state.slice(0, indexOfStudent).concat(indexOfStudent + 1)
         default: return state;
     }
     

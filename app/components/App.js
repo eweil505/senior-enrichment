@@ -6,6 +6,7 @@ import AddStudentContainer from './AddStudent';
 import AddCampusContainer from './AddCampus';
 import SingleCampus from './Campus';
 import SingleStudent from './Student';
+import EditStudentContainer from './EditStudent'
 import store, { fetchCampuses, fetchStudents } from '../store';
 import Navbar from './Navbar'
 
@@ -36,6 +37,7 @@ export default class App extends Component {
                         <Route exact path="/campus" component={CampusList} />
                         <Route exact path="/students" component={StudentList} />
                         <Route path="/students/new-student" component={AddStudentContainer} />
+                        <Route path="/students/edit-student/:studentId" component={EditStudentContainer} />
                         <Route path="/campus/new-campus" component={AddCampusContainer} />
                         <Route path="/campus/:campusId" component={SingleCampus} />
                         <Route path="/students/:student" component={SingleStudent} />    

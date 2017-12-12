@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GET_CAMPUSES = 'GET_CAMPUSES';
 const GET_CAMPUS = 'GET_CAMPUS';
+const CHANGE_CAMPUS = 'CHANGE_CAMPUS';
 
 export function getCampuses(campuses) {
     const action = {
@@ -19,6 +20,14 @@ export function getCampus(campus) {
     return action;
 }
 
+export function changeCampus(campusId) {
+    const action = {
+        type: CHANGE_CAMPUS,
+
+    }
+}
+
+
 export function fetchCampuses() {
     return function thunk(dispatch) {
         return axios.get('/api/campus')
@@ -31,7 +40,6 @@ export function fetchCampuses() {
 }
 
 export function postCampus(campus) {
-    console.log('campus object to post', campus)
     return function thunk(dispatch) {
         return axios.post('/api/campus/newCampus', campus)
         .then(res => res.data)

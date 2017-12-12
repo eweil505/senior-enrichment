@@ -11,7 +11,6 @@ import { AddStudentContainer } from './AddStudent.js'
 
 function StudentList(props) {
     const {students, campuses, dispatchDeleteStudent, dispatchCreateStudent} = props;
-    console.log('props', props)
     return (
             <div> 
                 <ul>
@@ -47,8 +46,9 @@ const mapDispatchToProps = function(dispatch) {
     return {
         dispatchDeleteStudent(event) {
             let studentId = event.target.value
-            console.log('studentId', studentId)
+            
             dispatch(deleteStudent(studentId))
+
         },
 
         dispatchCreateStudent(student) {

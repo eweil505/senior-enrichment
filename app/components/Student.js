@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import {NavLink} from 'react-router-dom'
+import EditStudent from './EditStudent'
 
 
 export default class SingleStudentContainer extends Component {
@@ -17,13 +18,11 @@ export default class SingleStudentContainer extends Component {
         .then(res => res.data)
         .then(singleStudent => {
             this.setState({student: singleStudent})
-        })
-    
-
-        
+        })    
     }
+
+   
    render() {
-       console.log('single student state', this.state)
     return (
         <div>
             <h1> {this.state.student.name} </h1>
@@ -31,7 +30,9 @@ export default class SingleStudentContainer extends Component {
             <NavLink to={`/campus/${this.state.student.campusId}`}>
                 <span>{this.state.student.name}'s  campus</span>
             </NavLink>
-                
+            <div>
+            <EditStudent student={this.state.student} />
+            </div>
         </div>
     )
    } 

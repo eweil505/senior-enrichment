@@ -25,11 +25,11 @@ function AddCampusContainer(props) {
         )
     }
 
-// const mapStateToProps = function(state) {
-//     return {
-//         campuses: state.campuses
-//     }
-// }
+const mapStateToProps = function(state) {
+    return {
+        campuses: state.campuses
+    }
+}
 
 const mapDispatchToProps = function(dispatch) {
     return {
