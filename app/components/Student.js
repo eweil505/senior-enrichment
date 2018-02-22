@@ -16,7 +16,6 @@ export const SingleStudent = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('ownProps ', ownProps)
     return {
         student: state.students.filter(student => student.id === +ownProps.match.params.student)
     }

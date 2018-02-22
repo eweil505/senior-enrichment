@@ -3,6 +3,7 @@ import {withRouter, NavLink, Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { removeStudent } from '../store.js'
 import { AddStudentContainer } from './AddStudent.js'
+import history from '../history'
 
 export const StudentList = (props) => {
     const {students, campuses, removeStudent} = props;
@@ -16,9 +17,8 @@ export const StudentList = (props) => {
                                     <NavLink to={`/students/${student.id}`}>
                                         <span>{student.name}</span>
                                     </NavLink> 
-                                    
+                                    <Link to={`students/edit-student/${student.id}`}>Edit this student's information</Link>
                                     <button onClick={() => removeStudent(event, student.id)}>delete student</button>
-                                    <button onClick={() => console.log('TESTING BUTTON')}></button>
                                 </li>
                                 )
                             })
@@ -26,6 +26,7 @@ export const StudentList = (props) => {
                     </ul>
 
                     <Link to={'students/new-student'}>Add A New Student</Link>
+                    
                 </div>
         )
 
@@ -38,11 +39,12 @@ const mapStateToProps = ({students}) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         removeStudent(event, studentId) {
             event.preventDefault()
             dispatch(removeStudent(studentId))
+            history.push('/students')
         }
     }
 }

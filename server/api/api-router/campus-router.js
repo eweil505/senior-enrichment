@@ -26,27 +26,23 @@ router.post('/newCampus', (req, res, next) => {
 })
 
 router.put('/:campusId', (req, res,  next) => {
-    Campus.findById(req.params.campusId) 
-    .then(campus => {
-        return campus.update(req.body)
-    })
-    .then(updatedCampus => {
-        res.status(204).json(updatedCampus)
-    })
-    .catch(next)
+    const id = req.params.campusId
+    Campus.findById(id) 
+        .then(campus => campus.update(req.body))
+        .then(updatedCampus => Campus.findById(updatedCampus.id))
+        .then(campus => res.status(202).send(campus))
+        .catch(next)
 })
 
 router.delete('/:campusId', (req, res, next) => {
     const campusId = req.params.campusId;
 
-    Campus.findById(campusId)
-    .then(campus => {
-        return campus.destroy()
+    Campus.destroy({
+        where: {
+            campusId
+        }
     })
-    .then(() => {
-        console.log(`deleted campus ${campusId}`)
-        res.status(202).redirect('/')
-    })
+    .then(() => res.sendStatus(202))
     .catch(next)
 })
 

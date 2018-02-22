@@ -24,27 +24,23 @@ router.post('/newStudent', (req, res, next) => {
 })
 
 router.put('/:studentId', (req, res, next) => {
-    Student.findById(req.params.studentId) 
-    .then(student => {
-        return student.update(req.body)
-    })
-    .then(updatedStudent => {
-        res.status(204).json(updatedStudent)
-    })
+    const id = req.params.studentId
+    Student.findById(id) 
+    .then(student => student.update(req.body))
+    .then(updatedStudent => Student.findById(updatedStudent.id))
+    .then(student => res.status(202).send(student))
     .catch(next)
 })
 
 router.delete('/:studentId', (req, res, next) => {
-    const studentId = req.params.studentId
-    Student.findById(+studentId)
-    .then(student => {
-        return student.destroy()
-    })
-    .then(() => {
-        console.log(`deleted student ${studentId}`)
-    })
-    .catch(next);
-
+	const id = req.params.studentId
+	Student.destroy({
+		where: {
+			id
+		}
+	})
+		.then(() => res.sendStatus(202))
+		.catch(next)
 })
 
 module.exports = router;

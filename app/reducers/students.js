@@ -76,7 +76,7 @@ export function removeStudent(studentId) {
         return axios.delete(`/api/students/${studentId}`)
         .then(() => {
             console.log(`Deleted ${studentId}`)
-            return dispatch(deleteStudent(studentId))
+            dispatch(deleteStudent(studentId))
         })
         .catch(error => console.log(error.stack))
     }
@@ -86,15 +86,12 @@ export function removeStudent(studentId) {
 export default function reducer(state = [], action) {
     switch(action.type) {
         case CREATE_NEW_STUDENT:
-            console.log('new student', action.student)
             return [...state, action.student];
         case GET_STUDENTS:
-            console.log('action.students ', action.students)
             return action.students;
         case UPDATE_STUDENT:
             return [...state.filter(student => student.id !== action.student.id), action.student];
-        case DELETE_STUDENT:
-            console.log('----------------IN DELETE_STUDENT-------------', action.studentId) 
+        case DELETE_STUDENT: 
             return [...state.filter(student => student.id !== action.studentId)];
         default: return state;
     }
