@@ -8,4 +8,3 @@ export default createStore(rootReducer, applyMiddleware(thunkMiddleware, logging
 
 export * from './reducers/campuses.js'
 export * from './reducers/students.js'
-export * from './reducers/singleCampus.js'

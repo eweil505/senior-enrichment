@@ -1,49 +1,29 @@
-import React, {Component} from 'react';
-import store, { fetchSingleCampus } from '../store'
+import React from 'react';
 import {connect} from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import axios from 'axios'
 import EditCampus from './EditCampus.js'
 import StudentList from './StudentList.js'
 
 
-export default class SingleCampusContainer extends Component {
-    constructor() {
-        super();
-        this.state = {
-            campus: {},
-            students: []
-        }
-    }
-
-    componentDidMount() {
-        const campusId = +this.props.match.params.campusId;
-        axios.get(`/api/campus/${campusId}`)
-        .then(res => res.data)
-        .then(singleCampus => {
-            this.setState({
-                campus: singleCampus,
-                students: singleCampus.students.filter(student => {
-                    return student.campusId === campusId;
-                })})
-        });
-
-
-
-    }
-   render() {
-
+export const SingleCampus= (props) => {
+    let {campus, students} = props;
+    campus = campus[0]
     return (
         <div>
-            <h1> {this.state.campus.name} </h1>
-            <p>{this.state.campus.description}</p>
-
-            <h2>Students at this campus: </h2>
-               
-            <StudentList />
-            <EditCampus campus={this.state.campus} />
-            <img src={this.state.campus.imageUrl}/>
+            <h1>{campus && campus.name}</h1>
+            {students.length ? students.map(student => {
+                return <div key={student.id}>{student.name}</div>
+            }) : <div>currently no students enrolled at this campus</div>}
         </div>
     )
-   }
 }
+
+const mapStateToProps = function(state, ownProps) {
+    let currentCampusId = +ownProps.match.params.campusId
+    return {
+        campus: state.campuses.filter(campus => campus.id === currentCampusId),
+        students: state.students.filter(student => student.campusId === currentCampusId)
+    }
+}
+
+export default connect(mapStateToProps)(SingleCampus)

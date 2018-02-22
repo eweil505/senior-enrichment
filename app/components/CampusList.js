@@ -29,9 +29,9 @@ function CampusList(props) {
     )
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = function({campuses}) {
     return {
-        campuses: state.campuses
+        campuses: campuses
     }
 }
 

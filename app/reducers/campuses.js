@@ -1,9 +1,12 @@
 import axios from 'axios';
+import {deleteStudent} from '../store'
 
+//ACTION TYPES
 const GET_CAMPUSES = 'GET_CAMPUSES';
-const GET_CAMPUS = 'GET_CAMPUS';
-const CHANGE_CAMPUS = 'CHANGE_CAMPUS';
+const DELETE_CAMPUS = 'DELETE_CAMPUS'
+const CREATE_CAMPUS = 'CREATE_CAMPUS';
 
+//ACTION CREATORS
 export function getCampuses(campuses) {
     const action = {
         type: GET_CAMPUSES,
@@ -12,29 +15,28 @@ export function getCampuses(campuses) {
     return action;
 }
 
-export function getCampus(campus) {
+export function deleteCampus(campusId) {
     const action = {
-        type: GET_CAMPUS,
+        type: DELETE_CAMPUS, campusId
+    }
+    return action;
+}
+
+export function createCampus(campus) {
+    const action = {
+        type: CREATE_CAMPUS,
         campus
     }
     return action;
 }
 
-export function changeCampus(campusId) {
-    const action = {
-        type: CHANGE_CAMPUS,
-
-    }
-}
-
-
+//THUNK CREATORS
 export function fetchCampuses() {
     return function thunk(dispatch) {
         return axios.get('/api/campus')
         .then(res => res.data)
         .then(campuses => {
-            const action = getCampuses(campuses);
-            dispatch(action);
+            dispatch(getCampuses(campuses)) 
         })
     }
 }
@@ -44,18 +46,31 @@ export function postCampus(campus) {
         return axios.post('/api/campus/newCampus', campus)
         .then(res => res.data)
         .then(newCampus => {
-            const action = getCampus(campus);
-            dispatch(action);
+            dispatch(createCampus(campus));
         })
     }
 }
 
+export function removeCampus(campusId) {
+    return function thunk(dispatch) {
+        return axios.delete(`api/campus/${campusId}`)
+        .then(() => {
+            dispatch(deleteCampus(campusId))
+            console.log(`deleted campus #${campusId}`)
+        }
+        )
+    }
+}
+
+//REDUCER FUNCTION
 export default function reducer(state=[], action) {
     switch(action.type) {
         case GET_CAMPUSES:
             return action.campuses;
-        case GET_CAMPUS:
-            return [...state, action.campus]
+        case CREATE_CAMPUS:
+            return [...state, action.campus];
+        case DELETE_CAMPUS:
+            return state.filter(campus => +campus.id !== +action.campusId)
         default: return state;
     }
 }

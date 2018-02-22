@@ -31,7 +31,7 @@ router.put('/:campusId', (req, res,  next) => {
         return campus.update(req.body)
     })
     .then(updatedCampus => {
-        res.json(updatedCampus)
+        res.status(204).json(updatedCampus)
     })
     .catch(next)
 })
@@ -45,7 +45,7 @@ router.delete('/:campusId', (req, res, next) => {
     })
     .then(() => {
         console.log(`deleted campus ${campusId}`)
-        res.redirect('/')
+        res.status(202).redirect('/')
     })
     .catch(next)
 })

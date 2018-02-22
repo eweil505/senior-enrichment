@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import CampusList from './CampusList';
-import StudentList from './StudentList';
-import AddStudentContainer from './AddStudent';
 import AddCampusContainer from './AddCampus';
+import AddStudentContainer from './AddStudent';
 import SingleCampus from './Campus';
-import SingleStudent from './Student';
+import CampusList from './CampusList';
+import EditCampusContainer from './EditCampus'
 import EditStudentContainer from './EditStudent'
-import store, { fetchCampuses, fetchStudents } from '../store';
 import Navbar from './Navbar'
+import SingleStudent from './Student';
+import StudentList from './StudentList';
+
+import store, { fetchCampuses, fetchStudents } from '../store';
+
 
 
 export default class App extends Component {

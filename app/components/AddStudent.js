@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import store, { createStudent } from '../store';
-
+import store, { postStudent } from '../store';
+import history from '../history'
 
 function AddStudentContainer(props) {
         return (
@@ -47,13 +47,14 @@ const mapDispatchToProps = function(dispatch) {
     return {
         handleSubmit(evt) {
             evt.preventDefault();
-            dispatch(createStudent({
+            dispatch(postStudent({
                 firstName: evt.target.firstName.value,
                 lastName: evt.target.lastName.value,
                 email: evt.target.email.value,
                 gpa: evt.target.gpa.value,
                 campusId: evt.target.campusId.value
             }))
+            history.push('/students')
         }
     }
 }

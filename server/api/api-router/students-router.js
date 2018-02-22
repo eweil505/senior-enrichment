@@ -29,7 +29,7 @@ router.put('/:studentId', (req, res, next) => {
         return student.update(req.body)
     })
     .then(updatedStudent => {
-        res.json(updatedStudent)
+        res.status(204).json(updatedStudent)
     })
     .catch(next)
 })

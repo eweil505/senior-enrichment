@@ -1,12 +1,21 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router'
+import { browserHistory as history} from 'react-router'
 
-const GET_STUDENTS = 'GET_STUDENTS';
-const DELETE_STUDENT_SUCCESS = 'DELETE_STUDENT_SUCCESS';
+//ACTION TYPES
 const CREATE_NEW_STUDENT = 'CREATE_NEW_STUDENT';
-const GET_STUDENT = 'GET_STUDENT';
-const UPDATE_SINGLE_STUDENT = 'UPDATE_SINGLE_STUDENT'
+const GET_STUDENTS = 'GET_STUDENTS';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const DELETE_STUDENT = 'DELETE_STUDENT';
 
+
+//ACTION CREATORS
+export function createNewStudent(student) {
+    const action = {
+        type: CREATE_NEW_STUDENT,
+        student
+    }
+    return action;
+}
 
 export function getStudents(students) {
     const action = {
@@ -16,26 +25,28 @@ export function getStudents(students) {
     return action;
 }
 
-export function deleteStudentSuccess(studentId) {
+export function updateStudent(student) {
     const action = {
-        type: DELETE_STUDENT_SUCCESS,
+        type: UPDATE_STUDENT,
+        student
+    }
+    return action;
+}
+
+export function deleteStudent(studentId) {
+    const action = {
+        type: DELETE_STUDENT,
         studentId
     }
     return action;
 }
 
-export function getStudent(student) {
-    const action = {
-        type: GET_STUDENT,
-        student
-    }
-    return action;
-}
-
-export function updateSingleStudent(student) {
-    const action = {
-        type: UPDATE_SINGLE_STUDENT,
-        student
+//THUNK CREATORS
+export function postStudent(student) {
+    return function thunk(dispatch) {
+        return axios.post('/api/students/newStudent', student)
+        .then(res => res.data)
+        .then(student => dispatch(createNewStudent(student)))
     }
 }
 
@@ -44,34 +55,9 @@ export function fetchStudents() {
         return axios.get('/api/students')
         .then(res => res.data) 
         .then(students => {
-            const action = getStudents(students);
-            dispatch(action);
+            dispatch(getStudents(students));
         });
     } 
-}
-
-export function deleteStudent(studentId) {
-    return function thunk(dispatch) {
-        return axios.delete(`/api/students/${studentId}`)
-        .then(() => {
-            console.log(`Deleted ${studentId}`)
-            dispatch(deleteStudentSuccess(studentId))
-            return;
-        })
-        .catch(error => console.log(error.stack))
-    }
-}
-
-export function createStudent(student) {
-    return function thunk(dispatch) {
-        return axios.post(`/api/students/newStudent`, student)
-        .then(res => res.data)
-        .then(newStudent => {
-            const action = getStudent(newStudent) 
-                dispatch(action);
-        })
-        .catch(error => console.log(error.stack))
-    }
 }
 
 export function editStudent(student, studentId) {
@@ -79,26 +65,37 @@ export function editStudent(student, studentId) {
         return axios.put(`/api/students/${studentId}`, student)
         .then(res => res.data)
         .then(updatedStudent => {
-            const action = updateSingleStudent(updatedStudent)
-            dispatch(action)
+            dispatch(updateStudent(updatedStudent));
         })
         .catch(error => console.log(error.stack))
     }
 }
 
+export function removeStudent(studentId) {
+    return function thunk(dispatch) {
+        return axios.delete(`/api/students/${studentId}`)
+        .then(() => {
+            console.log(`Deleted ${studentId}`)
+            return dispatch(deleteStudent(studentId))
+        })
+        .catch(error => console.log(error.stack))
+    }
+}
+
+//REDUCER FUNCTION
 export default function reducer(state = [], action) {
     switch(action.type) {
+        case CREATE_NEW_STUDENT:
+            console.log('new student', action.student)
+            return [...state, action.student];
         case GET_STUDENTS:
+            console.log('action.students ', action.students)
             return action.students;
-        case DELETE_STUDENT_SUCCESS:
-               return state.map(student => {
-                   return student.id !== student.action.id
-               })
-        case GET_STUDENT:
-            return [...state, action.student]
-        case UPDATE_SINGLE_STUDENT:
-            const indexOfStudent = state.indexOf(action.student)
-            return state.slice(0, indexOfStudent).concat(indexOfStudent + 1)
+        case UPDATE_STUDENT:
+            return [...state.filter(student => student.id !== action.student.id), action.student];
+        case DELETE_STUDENT:
+            console.log('----------------IN DELETE_STUDENT-------------', action.studentId) 
+            return [...state.filter(student => student.id !== action.studentId)];
         default: return state;
     }
     
