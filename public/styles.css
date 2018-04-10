@@ -1,8 +1,41 @@
+* {
+    box-sizing: border-box;
+    color: white;
+    background-color: black;
+}
+
 .btn {
     background: url(imgs/close_menu_icon.png) no-repeat;
 }
 
-.li {
-    list-style-type: none;
+h1, h2, h3, h4, label {
+    font-family: 'Homemade Apple', cursive;
+}
+
+body {
+    font-family: 'Voltaire', sans-serif;
+}
+
+.campusImg {
+    height: 100px;
+}
+
+.studentImg {
+    height: 150px;
+}
+
+#campusContainer {
+    display: flex;
+}
+
+#homePg {
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;
+    text-align: center;
+}
+#navbar {
+    display: flex;
+    justify-content: space-around;
 }
 

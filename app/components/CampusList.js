@@ -5,23 +5,21 @@ import {connect} from 'react-redux';
 function CampusList(props) {
     const {campuses} = props;
     return (
-        <div>
-            <ul>
+        <div id="campusContainer">
                 {
                     campuses.map(campus => {
                         return (
-                            <li key={campus.id}>
+                            <div key={campus.id}>
                                 <NavLink to={`/campus/${campus.id}`} >
-                                    <span>{campus.name}</span>
+                                    <label>{campus.name}</label>
+                                    <div><img src={campus.imageUrl} className="campusImg"></img></div>
                                 </NavLink>
                                 
-                            </li>
+                            </div>
                         );
                     })
                 }
                 
-            </ul>   
-            
             <div>
                 <NavLink to="/campus/new-campus">Create a new campus</NavLink>
             </div>

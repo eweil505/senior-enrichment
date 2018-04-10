@@ -10,10 +10,12 @@ export const SingleCampus= (props) => {
     campus = campus[0]
     return (
         <div>
-            <h1>{campus && campus.name}</h1>
-            {students.length ? students.map(student => {
-                return <div key={student.id}>{student.name}</div>
-            }) : <div>currently no students enrolled at this campus</div>}
+            <h1>{campus.name}</h1>
+            <div>{campus.description}</div>
+            <div><img src={campus.imageUrl} className="campusImg"></img></div>
+            <h3>Students at this campus:</h3>
+            {students.length ? students.map(student => <div key={student.id}>{student.name}</div>)
+            : <div>currently no students enrolled at this campus</div>}
         </div>
     )
 }

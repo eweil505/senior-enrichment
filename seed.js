@@ -3,22 +3,35 @@ const Student = db.model('students');
 const Campus = db.model('campuses');
 
 const enrolledStudents = [
-    {firstName: 'Sully', lastName: 'Sullivan', email: 'sully@monsters-u.edu', gpa: 3.8, campusId: 1},
-    {firstName: 'Mike', lastName: 'Wazowski', email: 'mikew@monsters-u.edu', gpa: 3.9, campusId: 1},
-    {firstName: 'Squishy', lastName: 'McSquishy', email: 'squishy@monsters-u.edu', gpa: 3.5, campusId: 2},
-    {firstName: 'Randall', lastName: 'Boggs', email: 'rboggs@monsters-u.edu', gpa: 3.7, campusId: 1},
-    {firstName: 'Johnny', lastName: 'Worthington', email: 'iamworthy@monsters-u.edu', gpa: 3.4, campusId: 2},
-    {firstName: 'Claire', lastName: 'Wheeler', email: 'wheeley@monsters-u.edu', gpa: 4.0, campusId: 1}
+    {firstName: 'Allizon', lastName: 'McGillivray', email: 'allizonM@chef.edu', gpa: 4.0, imageUrl: '/chef-allizon-mcgillivray.jpg', campusId: 1},
+    {firstName: 'Joseph', lastName: 'Webb', email: 'josephW@chef.edu', gpa: 3.9, imageUrl: '/chef-joseph-webb.jpg', campusId: 2}  
 ]
 
 const campuses = [
     {
-        name: 'Main Campus',
-        description: 'Welcome to our main campus! This is where we started, and our monsters have been in demand ever since.' 
+        name: 'American Cuisine',
+        description: 'This campus focuses on "New American" cuisine, encouraging students to set new food trends.',
+        imageUrl: '/gourmet-american.jpg'  
     },
     {
-        name: 'Auxillary Campus',
-        description: 'We\'ve just started offering our state-of the art curriculum online. We welcome students from around the world to learn our scare tactics.'
+        name: 'Chinese Cuisine',
+        description: 'Our Chinese Cuisine campus focuses on the eight major cuisines of China: Anhui, Cantonese, Fujian, Hunan, Jiangsu, Shandong, Sichuan, and Zhejian',
+        imageUrl: '/chinese.jpg'
+    },
+    {
+        name: 'French Cuisine',
+        description: 'Following in the footsteps of Auguste Escoffier, our French Cuisine campus takes a traditional approach to teaching haute cuisine techniques.',
+        imageUrl: '/gourmet-french.jpeg'
+    },
+    {
+        name: 'Indian Cuisine',
+        description: 'The newest of our campuses, the Indian Cuisine campus focuses on a delicate use of spices in the varied culinary specialties of India.',
+        imageUrl: '/gourmet-indian.jpg'
+    },
+    {
+        name: 'South American Cuisine',
+        description: 'The curriculum for our South American Cuisine campus ranges from recipes and techniques for street food to gourmet meals.',
+        imageUrl: '/south-american.jpg'
     }
 ]
 

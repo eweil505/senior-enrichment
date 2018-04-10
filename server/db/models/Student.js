@@ -24,7 +24,9 @@ const Student = db.define('students', {
             max: 4.0
         }
     },
-
+    imageUrl: {
+        type: Sequelize.STRING
+    },
     name: {
         type: Sequelize.STRING,
         get() {

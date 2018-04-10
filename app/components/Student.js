@@ -11,6 +11,7 @@ export const SingleStudent = (props) => {
     return (
         <div>
             <div>{student && student.name}</div>
+            <div><img src={student.imageUrl} className="studentImg"></img></div>
         </div>
     )   
 }

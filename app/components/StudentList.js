@@ -8,22 +8,20 @@ import history from '../history'
 export const StudentList = (props) => {
     const {students, campuses, removeStudent} = props;
         return (
-                <div> 
-                    <ul>
-                        {
-                            students.map(student => {
-                                return (
-                                    <li key={student.id}>
-                                    <NavLink to={`/students/${student.id}`}>
-                                        <span>{student.name}</span>
-                                    </NavLink> 
-                                    <Link to={`students/edit-student/${student.id}`}>Edit this student's information</Link>
-                                    <button onClick={() => removeStudent(event, student.id)}>delete student</button>
-                                </li>
+                <div>
+                    {
+                      students.map(student => {
+                        return (
+                          <div key={student.id}>
+                            <NavLink to={`/students/${student.id}`}>
+                              <span>{student.name}</span>
+                              </NavLink> 
+                                <Link to={`students/edit-student/${student.id}`}>Edit this student's information</Link>
+                                <button onClick={() => removeStudent(event, student.id)}>delete student</button>
+                          </div>
                                 )
                             })
                         }
-                    </ul>
 
                     <Link to={'students/new-student'}>Add A New Student</Link>
                     
